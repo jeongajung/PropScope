@@ -59,6 +59,7 @@
 범위: 아파트+오피스텔, 수도권 파일럿 자치구 1~2곳. Phase 1(API 키 확보)보다 먼저 착수한 이유: 이 환경 자체가 보안 제약 없는 클라우드 컨테이너라 UI/아키텍처 검증에는 지장이 없었음 — 대신 브이월드/카카오/네이버 API 키가 없어 실 데이터 연동은 그대로 Phase 1에 남아 있음.
 - [x] AI 챗봇 UI — a2ui(Material 3) 기반, 실제 MCP `render_surface`/`await_event` 프로토콜로 동작. 검색 로직은 결정론적 mock (`driver/src/chatEngine.ts`) — 환각 방지 원칙(도구 호출 결과만 인용)은 mock 단계에서도 그대로 지킴
 - [x] 3D 블록 뷰 — MapLibre GL JS, 채팅 결과와 실시간 연동
+- [x] 지도 실사(위성/항공사진) 베이스맵 코드 추가 — 기본값 Esri World Imagery(무료, 키 불필요), `VITE_SATELLITE_TILE_URL`로 교체 가능. ⚠️ 이 세션은 타일 서버 네트워크 접근이 막혀 있어 실제 렌더링 미검증 — 인터넷 열린 환경에서 확인 필요 (`app/README.md` 참고)
 - [x] 건물 상세 뷰 + 가격 추이 차트 — Three.js, 지도/목록 클릭 시 갱신
 - [ ] 주변 시세 비교를 실제 실거래가 기준으로 (Phase 1의 데이터 소스 확보 후)
 - [ ] mock 검색 로직(`driver/`)을 실 Claude API 호출로 교체 — 인프라는 이미 준비됨, API 키만 필요

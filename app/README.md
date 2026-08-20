@@ -20,6 +20,12 @@ cd app && npm install && npm run dev
 
 브라우저에서 `http://localhost:5173` 접속. 좌측이 a2ui가 그린 채팅/결과 목록, 우측이 지도+상세뷰.
 
+## 지도 실사(위성/항공사진) 베이스맵
+
+`CityMapView`는 기본적으로 키 없이 쓸 수 있는 Esri World Imagery를 raster 레이어로 깔고 그 위에 3D 건물을 압출한다. 다른 소스로 바꾸려면 `VITE_SATELLITE_TILE_URL` 환경변수에 `{z}/{x}/{y}` 템플릿 타일 URL을 넣으면 된다 (예: 브이월드 위성사진 API 키 발급 후 그 URL로 교체 — PRD `docs/PRD.md` 8번 참고).
+
+**이 세션 환경에서는 확인 못 함**: 이 개발 컨테이너 자체가 지도 타일 서버 도메인에 대한 네트워크 접근이 정책으로 막혀 있어서(Esri, MapTiler, Google 전부 `CONNECT tunnel failed` 확인), 실사 타일이 실제로 로드되는지는 여기서 렌더링해볼 수 없었다. 코드는 넣어뒀지만 인터넷이 열린 환경에서 `npm run dev`로 띄워 직접 확인 필요.
+
 ## 알려진 사소한 이슈
 
 - 콘솔에 `Unknown event handler property onAction` 경고가 뜬다 — `AgentUIRenderer`가 모든 노드에 이벤트 prop을 무조건 와이어링하는데, `TopAppBar`가 내부적으로 `<header>`에 그 prop을 그대로 넘겨서 나는 경고. 기능에는 영향 없음(a2ui-material-kit 쪽 이슈).

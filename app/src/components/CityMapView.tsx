@@ -15,6 +15,17 @@ const TYPE_COLOR: Record<string, string> = {
 };
 const SELECTED_COLOR = "#b23b2e";
 
+// 실사(위성/항공사진) 베이스맵. 기본값은 키가 필요 없는 Esri World Imagery —
+// 데모/개발용으로는 충분하지만 국내 정밀도는 브이월드·카카오 위성사진이 더 낫다.
+// PRD 8번 기준 실 서비스 전환 시 VITE_SATELLITE_TILE_URL을 브이월드
+// (예: https://api.vworld.kr/req/wmts/1.0.0/{API_KEY}/Satellite/{z}/{y}/{x}.jpeg)
+// 또는 카카오/네이버 위성 타일로 교체. 이 세션 환경은 타일 서버 자체가
+// 네트워크 정책으로 막혀 있어 여기서 직접 렌더링 확인은 못 했음 — 실제
+// 인터넷이 열린 곳에서 npm run dev로 띄워서 확인 필요.
+const SATELLITE_TILE_URL =
+  (import.meta as { env?: Record<string, string> }).env?.VITE_SATELLITE_TILE_URL ??
+  "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}";
+
 function toFeatureCollection(buildings: Building[]) {
   return {
     type: "FeatureCollection" as const,
@@ -56,9 +67,18 @@ export function CityMapView({ buildings, selectedId, onSelect }: CityMapViewProp
       container: containerRef.current,
       style: {
         version: 8,
-        sources: { buildings: { type: "geojson", data: toFeatureCollection([]) } },
+        sources: {
+          satellite: {
+            type: "raster",
+            tiles: [SATELLITE_TILE_URL],
+            tileSize: 256,
+            attribution: "Esri, Maxar, Earthstar Geographics (또는 설정된 타일 소스)",
+          },
+          buildings: { type: "geojson", data: toFeatureCollection([]) },
+        },
         layers: [
           { id: "bg", type: "background", paint: { "background-color": "#e8e2d0" } },
+          { id: "satellite", type: "raster", source: "satellite" },
           {
             id: "buildings-3d",
             type: "fill-extrusion",
@@ -74,7 +94,7 @@ export function CityMapView({ buildings, selectedId, onSelect }: CityMapViewProp
                 "#8a8570",
               ],
               "fill-extrusion-height": ["get", "heightMeters"],
-              "fill-extrusion-opacity": 0.92,
+              "fill-extrusion-opacity": 0.85,
             },
           },
         ],

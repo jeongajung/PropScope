@@ -17,3 +17,5 @@ cd preview && npm install && npm run build
 ## 주의
 
 `app/`나 `driver/`의 검색 로직·UI를 바꾸면 이 디렉토리의 파일들(`src/chatEngine.ts`, `src/mockBuildings.ts`, `src/surface.ts`, `src/components/*`)도 수동으로 다시 복사해야 한다 — 자동 동기화되지 않는다. 실 API 연동 후에는 이 프리뷰가 필요 없어질 가능성이 높다(실 백엔드를 배포하면 `app/`을 그대로 쓰면 되므로).
+
+**지도 실사(위성사진) 베이스맵은 여기 일부러 안 넣었다.** `app/`의 `CityMapView`는 Esri 위성 타일을 붙일 수 있게 해뒀지만, claude.ai 아티팩트의 CSP는 Google Fonts 외 모든 외부 네트워크 요청을 차단하기 때문에 이 프리뷰(아티팩트로 발행되는 버전)에서는 애초에 로드가 안 된다 — 넣어봐야 깨진 타일만 보임. 실사 베이스맵을 보려면 `app/`을 실제로 인터넷이 열린 환경에서 띄워야 한다.
