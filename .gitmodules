@@ -1,0 +1,3 @@
+[submodule "packages/a2ui-material-kit"]
+	path = packages/a2ui-material-kit
+	url = https://github.com/jeongajung/a2ui-material-kit

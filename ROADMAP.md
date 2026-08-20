@@ -14,6 +14,7 @@
 | 기술 스파이크 결과 | 3D 하이브리드 구조(MapLibre + Three.js) 검증 리포트 | [`docs/technical-spike.md`](docs/technical-spike.md) |
 | 스파이크 코드 | 실제 동작하는 로컬 PoC (오프라인, 합성 데이터) | [`spike/3d-viewer/`](spike/3d-viewer/) |
 | 포트폴리오 케이스스터디 | 전략적 판단 5가지를 스토리로 정리한 내러티브 | [`docs/case-study.html`](docs/case-study.html) |
+| 동작하는 MVP 앱 (mock 데이터) | AI 챗봇+3D 블록뷰+상세뷰가 실제 a2ui 프로토콜로 end-to-end 연결됨 | [`app/`](app/), [`driver/`](driver/), [`packages/a2ui-material-kit/`](packages/a2ui-material-kit/) (서브모듈) |
 
 > claude.ai 아티팩트로도 발행돼 있음 (계정 소유자에게만 보임, 공유하려면 각 페이지에서 링크 활성화 필요):
 > - PRD: https://claude.ai/code/artifact/04614fcf-c5d6-4306-85d4-9ac2f1af19e1
@@ -26,8 +27,9 @@
 3. **대상 지역** — 수도권 우선 확정(서울 파일럿 → 수도권 전역). 전국은 로드맵 밖.
 4. **비즈니스 모델** — 의도적 보류. MVP 지표는 수익이 아니라 제품 가치 검증에 집중.
 5. **3D 기술 스택** — 지도 레이어 MapLibre GL JS(Mapbox 대체, 무료), 상세 뷰 Three.js. 하이브리드 전환 구조는 PoC로 검증됨.
+6. **UI 아키텍처** — [`a2ui-material-kit`](https://github.com/jeongajung/a2ui-material-kit)(Material Design 3 킷 + A2UI 프로토콜 구현) 기반. 채팅/카드/칩 UI는 실제 MCP 서버(`render_surface`/`await_event`)가 그리고, 그 "에이전트" 자리에는 실 LLM 대신 결정론적 mock 로직(`driver/`)이 앉아 있음 — 비용 0원으로 진짜 프로토콜/인프라를 검증. 나중에 API 키가 생기면 `driver/src/index.ts`의 검색 로직 호출부만 실 Claude 호출로 바꾸면 되고 나머지(MCP 서버, 렌더링, 지도/3D)는 그대로 재사용.
 
-근거와 전체 맥락은 `docs/PRD.md`(부록 A 포함)와 `docs/technical-spike.md` 참고.
+근거와 전체 맥락은 `docs/PRD.md`(부록 A 포함), `docs/technical-spike.md`, `app/README.md` 참고.
 
 ---
 
@@ -49,12 +51,13 @@
 - [ ] 스파이크 재검증 — 실 데이터 연동, 좌표계 변환, 실기기 성능 (`docs/technical-spike.md` 5번 항목)
 - [ ] MVP 상세 기능 명세 작성 (User Story, API 설계)
 
-### Phase 2 — MVP 개발 (P0) ⬜ 미착수
-범위: 아파트+오피스텔, 수도권 파일럿 자치구 1~2곳
-- [ ] AI 챗봇 — 자연어 조건 → 검색 필터, 도구 호출 기반 답변 (환각 방지 구조)
-- [ ] 3D 블록 뷰 — MapLibre GL JS 기반 지역 3D 매스 뷰
-- [ ] 주변 시세 비교 — 실거래가 기반 반경 비교
-- [ ] 가격 추이 차트 1종
+### Phase 2 — MVP 개발 (P0) 🔶 부분 완료 (mock 데이터, 실 데이터는 Phase 1 대기)
+범위: 아파트+오피스텔, 수도권 파일럿 자치구 1~2곳. Phase 1(API 키 확보)보다 먼저 착수한 이유: 이 환경 자체가 보안 제약 없는 클라우드 컨테이너라 UI/아키텍처 검증에는 지장이 없었음 — 대신 브이월드/카카오/네이버 API 키가 없어 실 데이터 연동은 그대로 Phase 1에 남아 있음.
+- [x] AI 챗봇 UI — a2ui(Material 3) 기반, 실제 MCP `render_surface`/`await_event` 프로토콜로 동작. 검색 로직은 결정론적 mock (`driver/src/chatEngine.ts`) — 환각 방지 원칙(도구 호출 결과만 인용)은 mock 단계에서도 그대로 지킴
+- [x] 3D 블록 뷰 — MapLibre GL JS, 채팅 결과와 실시간 연동
+- [x] 건물 상세 뷰 + 가격 추이 차트 — Three.js, 지도/목록 클릭 시 갱신
+- [ ] 주변 시세 비교를 실제 실거래가 기준으로 (Phase 1의 데이터 소스 확보 후)
+- [ ] mock 검색 로직(`driver/`)을 실 Claude API 호출로 교체 — 인프라는 이미 준비됨, API 키만 필요
 
 ### Phase 3 — 베타 (P1) ⬜ 미착수
 - [ ] 관심 매물 저장/비교표
