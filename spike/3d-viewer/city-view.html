@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>블록 뷰 — MapLibre 스파이크</title>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div class="topbar">
+    <div><a href="/index.html">&larr; 스파이크 홈</a></div>
+    <div class="tag">CITY VIEW · MAPLIBRE GL JS (LOCAL GEOJSON, NO TILE SERVER)</div>
+  </div>
+  <div id="map"></div>
+  <div id="panel" class="panel">
+    <span class="type-pill" id="p-type"></span>
+    <h3 id="p-name"></h3>
+    <dl>
+      <dt>준공연도</dt><dd id="p-year"></dd>
+      <dt>층수</dt><dd id="p-floors"></dd>
+      <dt>매매 추정가</dt><dd id="p-price"></dd>
+      <dt>전세 추정가</dt><dd id="p-jeonse"></dd>
+    </dl>
+    <a class="cta" id="p-detail" href="#">상세보기 →</a>
+  </div>
+  <div class="hint">드래그로 회전(우클릭/두 손가락), 건물 클릭 시 시세 패널 표시</div>
+  <script type="module" src="/src/city-view.js"></script>
+</body>
+</html>

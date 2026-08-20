@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>건물 상세 뷰 — Three.js 스파이크</title>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div class="topbar">
+    <div><a href="/city-view.html">&larr; 블록 뷰로</a></div>
+    <div class="tag">BUILDING DETAIL · THREE.JS (CUSTOM MASS MODEL)</div>
+  </div>
+  <div id="scene"></div>
+  <div id="panel" class="panel open">
+    <span class="type-pill" id="p-type"></span>
+    <h3 id="p-name"></h3>
+    <dl>
+      <dt>준공연도</dt><dd id="p-year"></dd>
+      <dt>층수</dt><dd id="p-floors"></dd>
+      <dt>매매 추정가</dt><dd id="p-price"></dd>
+      <dt>전세 추정가</dt><dd id="p-jeonse"></dd>
+    </dl>
+    <div class="chart-wrap">
+      <div style="font-size:11px;color:var(--ink-muted);margin-bottom:4px;">최근 12개월 매매가 추이 (합성 데이터)</div>
+      <svg id="trend-chart" viewBox="0 0 280 60" preserveAspectRatio="none"></svg>
+    </div>
+  </div>
+  <div class="hint">드래그: 회전 · 스크롤: 줌</div>
+  <script type="module" src="/src/building-detail.js"></script>
+</body>
+</html>

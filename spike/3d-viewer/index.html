@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PropScope 3D 스택 스파이크</title>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div class="landing">
+    <h1>PropScope 3D 스택 기술 스파이크</h1>
+    <p class="lede">PRD 9번 항목의 하이브리드 구조(지도 기반 블록 뷰 + 커스텀 건물 상세 뷰)가 실제로 동작하는지 확인하기 위한 최소 PoC. 외부 지도 타일/API 없이 로컬 합성 데이터로만 구성됨.</p>
+    <div class="card-links">
+      <a href="/city-view.html">
+        <strong>1. 블록/도시 뷰 — MapLibre GL JS</strong>
+        <span>합성 건물 풋프린트를 fill-extrusion으로 3D 압출, 클릭 시 시세 패널 표시</span>
+      </a>
+      <a href="/building-detail.html">
+        <strong>2. 건물 상세 뷰 — Three.js</strong>
+        <span>선택 건물의 커스텀 매스 모델, 카메라 회전/줌, 가격 추이 차트</span>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
