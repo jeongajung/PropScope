@@ -25,3 +25,4 @@ cd app && npm install && npm run dev
 - 콘솔에 `Unknown event handler property onAction` 경고가 뜬다 — `AgentUIRenderer`가 모든 노드에 이벤트 prop을 무조건 와이어링하는데, `TopAppBar`가 내부적으로 `<header>`에 그 prop을 그대로 넘겨서 나는 경고. 기능에는 영향 없음(a2ui-material-kit 쪽 이슈).
 - Card처럼 컨테이너 역할인 노드도 클릭 이벤트가 자동으로 와이어링돼서, 자식 요소 클릭 시 DOM 버블링으로 부모 Card의 클릭 이벤트도 같이 `/events`로 전송된다. 드라이버가 인식 못 하는 nodeId는 그냥 무시하므로 기능상 문제는 없고 로그만 조금 더 찍힌다.
 - 채팅 입력창은 전송 후 자동으로 비워지지 않는다 (TextField를 controlled로 만들면 매 타이핑마다 surface를 다시 그려야 해서 일부러 보류).
+- **(실측으로 발견/수정됨)** `ListItem`의 `onSelect`는 실제로는 `onSelect`가 아니라 `onClick` 이벤트로 도착한다. 렌더러가 `onClick`과 `onSelect`를 둘 다 자동 연결하는데, `ListItem` 내부에서 `<li onClick={onSelect} {...rest}>`처럼 spread가 뒤에 와서 auto-wired `onClick`이 `onSelect`를 덮어쓰기 때문(a2ui-material-kit 쪽 이슈). `driver/src/index.ts`는 이미 `onClick` 기준으로 수정해뒀다.

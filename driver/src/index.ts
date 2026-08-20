@@ -97,7 +97,10 @@ async function main() {
       return;
     }
 
-    if (event.nodeId.startsWith("res-") && event.name === "onSelect") {
+    // ListItem의 onSelect prop은 렌더러가 onClick도 같이 자동 연결하는데, ListItem
+    // 컴포넌트 내부에서 {...rest} spread가 onClick={onSelect}보다 뒤에 와서 덮어써버림
+    // (a2ui-material-kit 실측 동작 — 실제로는 onSelect가 아니라 onClick으로 도착함).
+    if (event.nodeId.startsWith("res-") && event.name === "onClick") {
       selectBuilding(event.nodeId.slice("res-".length));
       await render();
       return;

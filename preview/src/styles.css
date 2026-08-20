@@ -1,0 +1,114 @@
+:root {
+  --bg: #f1eee7;
+  --surface: #fbf9f3;
+  --ink: #20241f;
+  --ink-muted: #5c5a4e;
+  --accent: #2c6e7f;
+  --accent-soft: #dce9e8;
+  --brass: #9a7830;
+  --rule: #d8d2c1;
+}
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, "Apple SD Gothic Neo", "Segoe UI", sans-serif;
+}
+
+.preview-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.preview-badge {
+  flex: none;
+  font-family: monospace;
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
+  text-align: center;
+  padding: 7px 12px;
+  background: var(--brass);
+  color: #fff;
+}
+
+.app-shell {
+  display: grid;
+  grid-template-columns: minmax(320px, 420px) 1fr;
+  flex: 1;
+  min-height: 0;
+}
+.app-shell__chat {
+  overflow-y: auto;
+  padding: 16px;
+  border-right: 1px solid var(--rule);
+  background: var(--surface);
+}
+.app-shell__spatial {
+  display: grid;
+  grid-template-rows: 1fr 320px;
+  min-height: 0;
+}
+
+.connection-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: monospace;
+  font-size: 12px;
+  color: var(--ink-muted);
+  margin-bottom: 12px;
+}
+.connection-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ink-muted); }
+.connection-badge[data-connected="true"] { color: var(--accent); }
+.connection-badge[data-connected="true"] .dot { background: var(--accent); }
+.waiting { color: var(--ink-muted); font-size: 14px; }
+
+/* --- Material Design 3 카탈로그 컴포넌트들이 md-card 안에 쭉 나열되므로,
+   섹션 사이 여백만 최소한으로 보정한다. 컴포넌트 자체 스타일은
+   material-a2ui/styles.css가 담당. --- */
+.md-card { margin-bottom: 12px; }
+.md-card > * + * { margin-top: 10px; }
+
+.city-map { width: 100%; height: 100%; position: relative; }
+
+.building-detail {
+  border-top: 1px solid var(--rule);
+  background: var(--surface);
+  padding: 14px 18px;
+  overflow-y: auto;
+}
+.building-detail--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--ink-muted);
+  font-size: 13.5px;
+  text-align: center;
+  padding: 0 24px;
+}
+.building-detail__header .building-detail__type {
+  font-family: monospace;
+  font-size: 11px;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.building-detail__header h3 { margin: 6px 0 2px; font-size: 16px; }
+.building-detail__meta { font-size: 12.5px; color: var(--ink-muted); margin-bottom: 8px; }
+.building-scene { width: 100%; height: 130px; border-radius: 8px; overflow: hidden; }
+.building-detail__prices {
+  display: flex;
+  gap: 20px;
+  margin: 10px 0;
+}
+.building-detail__prices .label,
+.building-detail__trend .label {
+  display: block;
+  font-size: 11px;
+  color: var(--ink-muted);
+}
+.building-detail__prices .value { font-size: 15px; font-weight: 700; }
+.trend-sparkline { width: 100%; height: 44px; margin-top: 4px; }

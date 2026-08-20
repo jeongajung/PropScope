@@ -15,10 +15,14 @@
 | 스파이크 코드 | 실제 동작하는 로컬 PoC (오프라인, 합성 데이터) | [`spike/3d-viewer/`](spike/3d-viewer/) |
 | 포트폴리오 케이스스터디 | 전략적 판단 5가지를 스토리로 정리한 내러티브 | [`docs/case-study.html`](docs/case-study.html) |
 | 동작하는 MVP 앱 (mock 데이터) | AI 챗봇+3D 블록뷰+상세뷰가 실제 a2ui 프로토콜로 end-to-end 연결됨 | [`app/`](app/), [`driver/`](driver/), [`packages/a2ui-material-kit/`](packages/a2ui-material-kit/) (서브모듈) |
+| 정적 프리뷰 (백엔드 없음) | 위 앱과 동일한 컴포넌트/로직을 브라우저에서만 실행되게 합친 빌드 — 클릭 한 번으로 바로 볼 수 있음 | [`preview/`](preview/) |
 
 > claude.ai 아티팩트로도 발행돼 있음 (계정 소유자에게만 보임, 공유하려면 각 페이지에서 링크 활성화 필요):
 > - PRD: https://claude.ai/code/artifact/04614fcf-c5d6-4306-85d4-9ac2f1af19e1
 > - 케이스스터디: https://claude.ai/code/artifact/f3cd49d0-e0b4-4908-a217-9bd434819bf1
+> - **앱 정적 프리뷰**: https://claude.ai/code/artifact/8b372e4b-5211-48a7-861c-79fd16b920b9
+
+**왜 실제 앱을 바로 배포한 링크가 아닌지**: `app/`은 MCP 서버·드라이버라는 별도 백엔드 프로세스가 있어야 동작하는데, 이 세션 환경도 Vercel/Render 같은 호스팅 제공자 API에 네트워크 접근이 막혀 있어 실배포는 못 함. 위 프리뷰 링크는 같은 UI/로직을 백엔드 없이 브라우저 안에서 돌아가게 만든 것 — 실제 배포(Vercel/Render 등)는 사용자 계정에서 진행 필요.
 
 ## 확정된 전략 결정 (5가지)
 
